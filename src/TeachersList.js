@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./TeachersList.css";
-function TeachersList() {
+
+function TeachersList({ onAddTeacher }) {
   const [teacherData, setTeacherData] = useState([]);
   const [teacherName, setTeacherName] = useState("");
   const [course, setCourse] = useState("");
@@ -25,6 +26,7 @@ function TeachersList() {
       setTeacherData([...teacherData, newTeacher]);
       setTeacherName("");
       setCourse("");
+      onAddTeacher(teacherName);
     }
   };
 
@@ -36,25 +38,25 @@ function TeachersList() {
 
   return (
     <div className="container">
-    <h1>لیست اساتید</h1>
-    <div className="input-group">
-      <input
-        type="text"
-        placeholder="نام و نام خانوادگی استاد"
-        value={teacherName}
-        onChange={(e) => setTeacherName(e.target.value)}
-      />
+      <h1>لیست اساتید</h1>
+      <div className="input-group">
+        <input
+          type="text"
+          placeholder="نام و نام خانوادگی استاد"
+          value={teacherName}
+          onChange={(e) => setTeacherName(e.target.value)}
+        />
         <input
           type="text"
           placeholder="نام درس"
           value={course}
           onChange={(e) => setCourse(e.target.value)}
         />
-      <button className="button" onClick={handleAddTeacher}>
-        افزودن استاد
-      </button>
-    </div>
-    <table>
+        <button className="button" onClick={handleAddTeacher}>
+          افزودن استاد
+        </button>
+      </div>
+      <table>
       <thead>
         <tr>
           <th>نام و نام خانوادگی استاد</th>
@@ -77,13 +79,9 @@ function TeachersList() {
           </tr>
         ))}
       </tbody>
-    </table>
-  </div>
+      </table>
+    </div>
   );
 }
 
 export default TeachersList;
-
-
-
-

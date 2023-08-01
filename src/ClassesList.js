@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./ClassesList.css";
+
 const ClassesList = () => {
   const [teachers, setTeachers] = useState([]);
   const [newTeacher, setNewTeacher] = useState("");
   const [newCourse, setNewCourse] = useState("");
+  const [newClassType, setNewClassType] = useState("");
+  const [newClassNumber, setNewClassNumber] = useState("");
 
   useEffect(() => {
     const storedTeachers = localStorage.getItem("teachers");
@@ -22,11 +25,14 @@ const ClassesList = () => {
       id: uuidv4(),
       name: newTeacher,
       course: newCourse,
+      classType: newClassType,
+      classNumber: newClassNumber,
     };
 
     setTeachers([...teachers, teacher]);
-    setNewTeacher("");
     setNewCourse("");
+    setNewClassType("");
+    setNewClassNumber("");
   };
 
   const handleDeleteTeacher = (id) => {
@@ -38,11 +44,22 @@ const ClassesList = () => {
     <div className="container">
       <h1>لیست کلاس ها</h1>
       <div className="input-group">
+        <select
+        className="select"
+          type="text"
+          value={newClassType}
+          onChange={(e) => setNewClassType(e.target.value)}
+        >
+          <option value="">نوع کلاس</option>
+              <option>  کلاس</option>
+              <option>سایت</option>
+              <option>کارگاه</option>
+        </select>
         <input
           type="text"
-          value={newTeacher}
-          placeholder=" کلاس"
-          onChange={(e) => setNewTeacher(e.target.value)}
+          value={newClassNumber}
+          placeholder="شماره کلاس"
+          onChange={(e) => setNewClassNumber(e.target.value)}
         />
         <input
           type="text"
@@ -51,21 +68,23 @@ const ClassesList = () => {
           onChange={(e) => setNewCourse(e.target.value)}
         />
         <button className="button" onClick={handleAddTeacher}>
-        افزودن کلاس
+          افزودن کلاس
         </button>
       </div>
 
       <table>
         <thead>
           <tr>
-            <th> کلاس</th>
+            <th>نوع</th>
+            <th> شماره کلاس</th>
             <th> درس</th>
           </tr>
         </thead>
         <tbody>
           {teachers.map((teacher) => (
             <tr key={teacher.id}>
-              <td>{teacher.name}</td>
+              <td>{teacher.classType}</td>
+              <td>{teacher.classNumber}</td>
               <td>{teacher.course}</td>
               <td>
                 <button
@@ -84,3 +103,4 @@ const ClassesList = () => {
 };
 
 export default ClassesList;
+
