@@ -4,14 +4,18 @@ import "./Report.css"
 
 const Report = () => {
     return (
-        <div className='container-report'>
-            <h1>گزارشات</h1>
-            <Link className={"Lik"} to="/teachersList">لسیت معلمین</Link>
-            
-            <Link className={"Lik"} to="/curriculum">برنامه درسی</Link>
-           
-            <Link className={"Lik"} to="/classesList">لیست کلاس ها</Link>
-        </div>
+        <>
+            <div className='container-report'>
+                <h1 className='h1-report'>گزارشات</h1>
+                <Link className={"Lik"} to="/teachersListRport">لسیت معلمین</Link>
+
+                <Link className={"Lik"} to="/curriculumRport">برنامه درسی</Link>
+
+                <Link className={"Lik"} to="/classesListRport">لیست کلاس ها</Link>
+            </div>
+            <Link className={"Lik-bak"} to="/home">برگشت به صفحه اصلی</Link>
+        </>
+
     );
 };
 

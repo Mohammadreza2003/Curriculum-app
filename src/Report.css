@@ -13,3 +13,18 @@
     font-size: 20px;
 }
 
+.Lik-bak{
+    text-align: center;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: left;
+    border: none;
+    text-decoration: none;
+    color: rgb(252, 46, 46);
+    font-size: 15px;
+    padding-top: 5px;
+}
+
+.h1-report{
+    text-align: center;
+}

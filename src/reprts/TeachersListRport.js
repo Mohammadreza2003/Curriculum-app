@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./TeachersList.css";
-
+import "./TeachersListRport.css";
+import { Link } from "react-router-dom";
 function TeachersList({ onAddTeacher }) {
   const [teacherData, setTeacherData] = useState([]);
   const [teacherName, setTeacherName] = useState("");
@@ -92,6 +92,7 @@ function TeachersList({ onAddTeacher }) {
         ))}
       </tbody>
       </table>
+      <Link className={"Lik-bak-report"} to="/report"> برگشت به صفحه گزارشات </Link>
     </div>
   );
 }

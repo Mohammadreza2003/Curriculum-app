@@ -1,0 +1,61 @@
+/* App.css */
+
+.App {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  h2 {
+    color: #333;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  input {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 200px;
+  }
+  
+  button {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    height: 31px;
+    margin-right: 5px;
+    border-radius: 5px;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    text-align: left;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+  }
+  
+  button.delete-button {
+    background-color: #ff4f4f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+
+  .button {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }

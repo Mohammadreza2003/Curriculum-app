@@ -1,0 +1,48 @@
+/* TeachersList.css */
+
+.container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  .input-group {
+    margin-bottom: 10px;
+  }
+  
+  .input-group input {
+    margin-right: 5px;
+    padding: 8px;
+    width: 200px;
+  }
+  
+  .button {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .delete-button {
+    background-color: #ff4f4f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  

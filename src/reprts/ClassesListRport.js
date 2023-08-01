@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import "./ClassesList.css";
+import "./ClassesListRport.css";
 
 const ClassesList = () => {
   const [teachers, setTeachers] = useState([]);
@@ -33,7 +34,6 @@ const ClassesList = () => {
     setNewCourse("");
     setNewClassType("");
     setNewClassNumber("");
-    setNewTeacher("")
   };
 
   const handleDeleteTeacher = (id) => {
@@ -99,6 +99,7 @@ const ClassesList = () => {
           ))}
         </tbody>
       </table>
+      <Link className={"Lik-bak-report"} to="/report"> برگشت به صفحه گزارشات </Link>
     </div>
   );
 };
