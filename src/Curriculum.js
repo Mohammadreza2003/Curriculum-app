@@ -187,7 +187,7 @@ const Curriculum = () => {
             className="currinp"
             type="text"
             name="time"
-            placeholder="مثال: 12-13"
+            placeholder="ساعت"
             value={formData.time}
             onChange={handleChange}
             pattern="\d{1,2}-\d{1,2}"
