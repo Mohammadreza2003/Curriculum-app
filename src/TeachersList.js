@@ -5,7 +5,8 @@ function TeachersList({ onAddTeacher }) {
   const [teacherData, setTeacherData] = useState([]);
   const [teacherName, setTeacherName] = useState("");
   const [course, setCourse] = useState("");
-  const [classNumber, setClassNumber] = useState("");
+  const [editMode, setEditMode] = useState(Array(teacherData.length).fill(false));
+
 
   useEffect(() => {
     const storedData = localStorage.getItem("teacherData");
@@ -22,7 +23,6 @@ function TeachersList({ onAddTeacher }) {
     if (teacherName && course) {
       const newTeacher = {
         name: teacherName,
-        number:classNumber,
         course: course,
       };
       setTeacherData([...teacherData, newTeacher]);
@@ -38,6 +38,23 @@ function TeachersList({ onAddTeacher }) {
     setTeacherData(updatedTeacherData);
   };
 
+  const handleToggleEditMode = (index) => {
+    const updatedEditMode = [...editMode];
+    updatedEditMode[index] = !updatedEditMode[index];
+    setEditMode(updatedEditMode);
+  };
+  const handleEditInputChange = (index, fieldName, value) => {
+    const updatedTeacherData = [...teacherData];
+    updatedTeacherData[index][fieldName] = value;
+    setTeacherData(updatedTeacherData);
+  };
+  const handleSaveChanges = (index) => {
+    const updatedEditMode = [...editMode];
+    updatedEditMode[index] = false;
+    setEditMode(updatedEditMode);
+  };
+      
+
   return (
     <div className="container">
       <h1>لیست اساتید</h1>
@@ -49,14 +66,6 @@ function TeachersList({ onAddTeacher }) {
           onChange={(e) => setTeacherName(e.target.value)}
         />
         <input
-            type="text"
-            name="classNumber"
-            placeholder=" شماره کلاس "
-            value={classNumber}
-            onChange={(e) => setClassNumber(e.target.value)}
-            required
-          />
-        <input
           type="text"
           placeholder="نام درس"
           value={course}
@@ -67,30 +76,55 @@ function TeachersList({ onAddTeacher }) {
         </button>
       </div>
       <table>
-      <thead>
-        <tr>
-          <th>نام و نام خانوادگی استاد</th>
-          <th> شماره کلاس</th>
-          <th>نام درس</th>
-        </tr>
-      </thead>
-      <tbody>
-        {teacherData.map((teacher, index) => (
-          <tr key={index}>
-            <td>{teacher.name}</td>
-            <td>{teacher.number}</td>
-            <td>{teacher.course}</td>
-            <td>
-              <button
-                className="delete-button"
-                onClick={() => handleDeleteTeacher(index)}
-              >
-                حذف
-              </button>
-            </td>
+        <thead>
+          <tr>
+            <th>نام و نام خانوادگی استاد</th>
+            <th>نام درس</th>
           </tr>
-        ))}
-      </tbody>
+        </thead>
+        <tbody>
+        {teacherData.map((teacher, index) => (
+  <tr key={index}>
+    <td>
+      {editMode[index] ? (
+        <input
+          type="text"
+          value={teacher.name}
+          onChange={(e) => handleEditInputChange(index, "name", e.target.value)}
+        />
+      ) : (
+        teacher.name
+      )}
+    </td>
+    <td>
+      {editMode[index] ? (
+        <input
+          type="text"
+          value={teacher.course}
+          onChange={(e) => handleEditInputChange(index, "course", e.target.value)}
+        />
+      ) : (
+        teacher.course
+      )}
+    </td>
+    <td>
+      <button
+        className="delete-button"
+        onClick={() => handleDeleteTeacher(index)}
+      >
+        حذف
+      </button>
+      <button
+        className="edit-button"
+        onClick={() => handleToggleEditMode(index)}
+      >
+        {editMode[index] ? "ذخیره" : "ویرایش"}
+      </button>
+    </td>
+  </tr>
+))}
+
+        </tbody>
       </table>
     </div>
   );

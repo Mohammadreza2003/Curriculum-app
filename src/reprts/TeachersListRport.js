@@ -41,31 +41,6 @@ function TeachersList({ onAddTeacher }) {
   return (
     <div className="container">
       <h1>لیست اساتید</h1>
-      <div className="input-group">
-        <input
-          type="text"
-          placeholder="نام و نام خانوادگی استاد"
-          value={teacherName}
-          onChange={(e) => setTeacherName(e.target.value)}
-        />
-        <input
-            type="text"
-            name="classNumber"
-            placeholder=" شماره کلاس "
-            value={classNumber}
-            onChange={(e) => setClassNumber(e.target.value)}
-            required
-          />
-        <input
-          type="text"
-          placeholder="نام درس"
-          value={course}
-          onChange={(e) => setCourse(e.target.value)}
-        />
-        <button className="button" onClick={handleAddTeacher}>
-          افزودن استاد
-        </button>
-      </div>
       <table>
       <thead>
         <tr>
@@ -80,14 +55,6 @@ function TeachersList({ onAddTeacher }) {
             <td>{teacher.name}</td>
             <td>{teacher.number}</td>
             <td>{teacher.course}</td>
-            <td>
-              <button
-                className="delete-button"
-                onClick={() => handleDeleteTeacher(index)}
-              >
-                حذف
-              </button>
-            </td>
           </tr>
         ))}
       </tbody>

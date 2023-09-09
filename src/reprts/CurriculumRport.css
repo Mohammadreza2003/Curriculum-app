@@ -39,7 +39,7 @@
     padding: 8px;
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc;
-    text-align: left;
+    text-align: center;
     border-right: 1px solid #ccc;
     border-left: 1px solid #ccc;
   }
@@ -58,4 +58,86 @@
     color: #fff;
     border: none;
     cursor: pointer;
+  }
+
+  .container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th,
+  td {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  .delete-button {
+    background-color: #ff4f4f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .input-group {
+    margin-top: 20px;
+  }
+  
+  .input-group input {
+    margin-right: 5px;
+    padding: 8px;
+    width: 200px;
+  }
+  
+  .button {
+    padding: 8px 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    height: 31px;
+    margin-right: 5px;
+    border-radius: 5px;
+  }
+  
+  .curriform {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .currinp {
+    margin-right: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .select {
+    width: 89px;
+    height: 32px;
+    margin-right: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .Lik-bak-report{
+    text-align: center;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: left;
+    border: none;
+    text-decoration: none;
+    color: rgb(252, 46, 46);
+    font-size: 15px;
+    padding-top: 10px;
   }
