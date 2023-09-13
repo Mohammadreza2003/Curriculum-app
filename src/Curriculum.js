@@ -18,18 +18,18 @@ const Curriculum = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const isClassTimeSlotAvailable = (classNumber, day, time,teacherName,) => {
+  const isClassTimeSlotAvailable = (classNumber, day, time, teacherName) => {
     return classes.some(
       (classItem) =>
-        classItem.classNumber === classNumber && classItem.day === day && classItem.time === time && classItem.teacherName === teacherName 
+        classItem.classNumber === classNumber && classItem.day === day && classItem.time === time && classItem.teacherName === teacherName
     );
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const { classNumber, day, time ,teacherName} = formData;
-
+  
+    const { classNumber, day, time, teacherName } = formData;
     const [startHour, endHour] = time.split('-');
     const startHourInt = parseInt(startHour);
     const endHourInt = parseInt(endHour);
@@ -40,16 +40,33 @@ const Curriculum = () => {
       endHourInt < 1 || endHourInt > 24 ||
       startHourInt > endHourInt
     ) {
-      setError("فرمت بازه‌ی زمانی نامعتبر است. مثال معتبر: 8-10 یا 13-14");
+      setError(alert("فرمت بازه‌ی زمانی نامعتبر است. مثال معتبر: 8-10 یا 13-14"));
       return;
     }
-
-    if (isClassTimeSlotAvailable(classNumber, day, time,teacherName)) {
-      setError("این کلاس در حال حاضر یک درس برنامه ریزی شده دارد.");
-      return alert(error)
+  
+    // Check if the teacher is already scheduled during the specified time range for class number 1
+    const isTeacherScheduled = classes.some(
+      (classItem) =>
+        classItem.classNumber !== classNumber &&  // Exclude the current class from the check
+        classItem.day === day &&
+        (
+          (startHourInt >= parseInt(classItem.time.split('-')[0]) && startHourInt <= parseInt(classItem.time.split('-')[1])) ||
+          (endHourInt >= parseInt(classItem.time.split('-')[0]) && endHourInt <= parseInt(classItem.time.split('-')[1]))
+        ) &&
+        classItem.teacherName === teacherName
+    );
+  
+    if (isTeacherScheduled) {
+      setError(alert("این استاد در این زمان در کلاس دیگری تدریس می‌کند."));
+      return;
+    }
+  
+    // Check if the class time slot is available
+    if (isClassTimeSlotAvailable(classNumber, day, time, teacherName)) {
+      setError(alert("این کلاس در حال حاضر یک درس برنامه ریزی شده دارد."));
+      return;
     } else {
       setError("");
-
       const newClass = { ...formData };
       setClasses([...classes, newClass]);
       setFormData({
@@ -62,7 +79,7 @@ const Curriculum = () => {
       });
     }
   };
-
+  
   const handleDeleteTeacher = (index) => {
     const updatedTeacherData = [...classes];
     updatedTeacherData.splice(index, 1);
@@ -87,7 +104,7 @@ const Curriculum = () => {
     updatedEditMode[index] = false;
     setEditMode(updatedEditMode);
   };
-  
+
   useEffect(() => {
     const storedClasses = localStorage.getItem("classes");
     if (storedClasses) {
@@ -99,7 +116,7 @@ const Curriculum = () => {
     localStorage.setItem("classes", JSON.stringify(classes));
   }, [classes]);
 
-  
+
 
   return (
     <div className="container">
@@ -149,7 +166,7 @@ const Curriculum = () => {
         </label>
         <br />
         <label className="form-label">
-        <input
+          <input
             className="currinp"
             type="text"
             name="teacherName"
@@ -210,74 +227,74 @@ const Curriculum = () => {
           </tr>
         </thead>
         <tbody>
-        {classes.map((classItem, index) => (
-  <tr key={index}>
-    <td>
-      {editMode[index] ? (
-        <input
-          type="text"
-          value={classItem.classType}
-          onChange={(e) => handleEditInputChange(index, "classType", e.target.value)}
-        />
-      ) : (
-        classItem.classType
-      )}
-    </td>
-    <td>
-      {editMode[index] ? (
-        <input
-          type="text"
-          value={classItem.classNumber}
-          onChange={(e) => handleEditInputChange(index, "classNumber", e.target.value)}
-        />
-      ) : (
-        classItem.classNumber
-      )}
-    </td>
-    <td>
-      {editMode[index] ? (
-        <input
-          type="text"
-          value={classItem.lessonName}
-          onChange={(e) => handleEditInputChange(index, "lessonName", e.target.value)}
-        />
-      ) : (
-        classItem.lessonName
-      )}
-    </td>
-    <td>
-      {editMode[index] ? (
-        <input
-          type="text"
-          value={classItem.teacherName}
-          onChange={(e) => handleEditInputChange(index, "teacherName", e.target.value)}
-        />
-      ) : (
-        classItem.teacherName
-      )}
-    </td>
-    <td>
-      {editMode[index] ? (
-        <input
-          type="text"
-          value={classItem.day}
-          onChange={(e) => handleEditInputChange(index, "day", e.target.value)}
-        />
-      ) : (
-        classItem.day
-      )}
-    </td>
-    <td>
-      {editMode[index] ? (
-        <input
-          type="text"
-          value={classItem.time}
-          onChange={(e) => handleEditInputChange(index, "time", e.target.value)}
-        />
-      ) : (
-        classItem.time
-      )}
-    </td>
+          {classes.map((classItem, index) => (
+            <tr key={index}>
+              <td>
+                {editMode[index] ? (
+                  <input
+                    type="text"
+                    value={classItem.classType}
+                    onChange={(e) => handleEditInputChange(index, "classType", e.target.value)}
+                  />
+                ) : (
+                  classItem.classType
+                )}
+              </td>
+              <td>
+                {editMode[index] ? (
+                  <input
+                    type="text"
+                    value={classItem.classNumber}
+                    onChange={(e) => handleEditInputChange(index, "classNumber", e.target.value)}
+                  />
+                ) : (
+                  classItem.classNumber
+                )}
+              </td>
+              <td>
+                {editMode[index] ? (
+                  <input
+                    type="text"
+                    value={classItem.lessonName}
+                    onChange={(e) => handleEditInputChange(index, "lessonName", e.target.value)}
+                  />
+                ) : (
+                  classItem.lessonName
+                )}
+              </td>
+              <td>
+                {editMode[index] ? (
+                  <input
+                    type="text"
+                    value={classItem.teacherName}
+                    onChange={(e) => handleEditInputChange(index, "teacherName", e.target.value)}
+                  />
+                ) : (
+                  classItem.teacherName
+                )}
+              </td>
+              <td>
+                {editMode[index] ? (
+                  <input
+                    type="text"
+                    value={classItem.day}
+                    onChange={(e) => handleEditInputChange(index, "day", e.target.value)}
+                  />
+                ) : (
+                  classItem.day
+                )}
+              </td>
+              <td>
+                {editMode[index] ? (
+                  <input
+                    type="text"
+                    value={classItem.time}
+                    onChange={(e) => handleEditInputChange(index, "time", e.target.value)}
+                  />
+                ) : (
+                  classItem.time
+                )}
+              </td>
               <td>
                 <button
                   className="delete-button"
