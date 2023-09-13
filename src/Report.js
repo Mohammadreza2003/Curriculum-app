@@ -7,7 +7,7 @@ const Report = () => {
         <>
             <div className='container-report'>
                 <h1 className='h1-report'>گزارشات</h1>
-                <Link className={"Lik"} to="/teachersListRport">لسیت اساتید</Link>
+                <Link className={"Lik"} to="/teachersListRport">لیست اساتید</Link>
 
                 <Link className={"Lik"} to="/curriculumRport">برنامه درسی</Link>
             </div>
