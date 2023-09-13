@@ -25,20 +25,31 @@ const Curriculum = () => {
     );
   };
 
+  const isTeacherAlreadyScheduled = (startHourInt, endHourInt, day, teacherName) => {
+    return classes.some(
+      (classItem) =>
+        classItem.day === day &&
+        classItem.teacherName === teacherName &&
+        (
+          (startHourInt >= parseInt(classItem.time.split('-')[0]) && startHourInt < parseInt(classItem.time.split('-')[1])) ||
+          (endHourInt > parseInt(classItem.time.split('-')[0]) && endHourInt <= parseInt(classItem.time.split('-')[1]))
+        )
+    );
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
     const { classNumber, day, time, teacherName } = formData;
     const [startHour, endHour] = time.split('-');
     const startHourInt = parseInt(startHour);
     const endHourInt = parseInt(endHour);
   
+    // Check for invalid time format
     if (
       !/^\d{1,2}-\d{1,2}$/.test(time) ||
       startHourInt < 1 || startHourInt > 24 ||
       endHourInt < 1 || endHourInt > 24 ||
-      startHourInt > endHourInt
+      startHourInt >= endHourInt
     ) {
       setError(alert("فرمت بازه‌ی زمانی نامعتبر است. مثال معتبر: 8-10 یا 13-14"));
       return;
@@ -47,11 +58,11 @@ const Curriculum = () => {
     // Check if the teacher is already scheduled during the specified time range for class number 1
     const isTeacherScheduled = classes.some(
       (classItem) =>
-        classItem.classNumber !== classNumber &&  // Exclude the current class from the check
+        classItem.classNumber !== classNumber && // Exclude the current class from the check
         classItem.day === day &&
         (
-          (startHourInt >= parseInt(classItem.time.split('-')[0]) && startHourInt <= parseInt(classItem.time.split('-')[1])) ||
-          (endHourInt >= parseInt(classItem.time.split('-')[0]) && endHourInt <= parseInt(classItem.time.split('-')[1]))
+          (startHourInt >= parseInt(classItem.time.split('-')[0]) && startHourInt < parseInt(classItem.time.split('-')[1])) ||
+          (endHourInt > parseInt(classItem.time.split('-')[0]) && endHourInt <= parseInt(classItem.time.split('-')[1]))
         ) &&
         classItem.teacherName === teacherName
     );
@@ -61,9 +72,9 @@ const Curriculum = () => {
       return;
     }
   
-    // Check if the class time slot is available
-    if (isClassTimeSlotAvailable(classNumber, day, time, teacherName)) {
-      setError(alert("این کلاس در حال حاضر یک درس برنامه ریزی شده دارد."));
+    // Check if the teacher is already scheduled during the new class's time range
+    if (isTeacherAlreadyScheduled(startHourInt, endHourInt, day, teacherName)) {
+      setError(alert(" این کلاس در حال حاضر یک درس برنامه ریزی شده دارد."));
       return;
     } else {
       setError("");
